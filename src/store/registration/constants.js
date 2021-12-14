@@ -1,0 +1,3 @@
+export const REGIST_SUCCES = "REGIST_SUCCES";
+export const REGIST_FAILED = "REGIST_FAILED";
+export const REGIST_LOADING = "REGIST_LOADING";
