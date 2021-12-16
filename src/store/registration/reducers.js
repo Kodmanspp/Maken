@@ -1,4 +1,4 @@
-import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "./constants";
+import { REGIST_LOADING, REGIST_FAILED, REGIST_SUCCES} from "./constants";
 
 const initialState = {
     token: "",
@@ -7,18 +7,20 @@ const initialState = {
     succes: true,
 }
 
-export default function authReducer(state = initialState, action){
-    console.log(state); 
+export default function registReducer(state = initialState, action){
+    
     switch(action.type){
-        case LOGIN_LOADING:
+        case REGIST_LOADING:
+            console.log(state, "reg loading");
             return {...state, loading: true};
-
-        case LOGIN_SUCCESS: 
+        case REGIST_SUCCES: 
+        console.log(state, "reg suc");
             return {...state, token: action.payload ,succes: true, loading: false, error: null};
 
-        case LOGIN_FAILED: 
+        case REGIST_FAILED: 
+        console.log(state, "reg fail");
             return {...state, succes: false, loading: false, error: action.payload};
 
-        default: return state; 
+        default: console.log(state, "reg lol"); return state; 
     }
 }

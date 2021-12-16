@@ -21,7 +21,7 @@ export const loginError = (error) =>{
 }
 export const fetchLogin = (login, password) => (dispatch) => {
     dispatch(loginLoading);
-    axios.post("https://maken-task.herokuapp.com/api/user/sign-up",{
+    axios.post("http://localhost:1717/login",{
         username: login,
         password: password,
     })

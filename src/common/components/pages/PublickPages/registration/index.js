@@ -16,7 +16,7 @@ export default function Registration() {
 
     const setUserInfo = (e) => {
         e.preventDefault();
-        fetchRegist(dispatch(userData, dispatch));
+        dispatch(fetchRegist(userData, dispatch));
     }
 
     return (

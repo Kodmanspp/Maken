@@ -23,13 +23,16 @@ export const registError = (error) =>{
 }
 export const fetchRegist = (userData) => (dispatch) => {
     dispatch(registLoading);
-    const {image, login, password, tel} = userData; 
-    
+    // const {image, login, password, tel} = userData; 
     axios.post("http://localhost:1717/signin",{
-        image: image,
-        login: login, 
-        password: password,
-        telegram: tel, 
+        // image: image,
+        // login: login, 
+        // password: password,
+        // telegram: tel, 
+        username: "killi",
+        password: "blame",
+        firstname: "killi",
+        age: 3000,
     })
     .then(token => {
         dispatch(registSucces(token.data.token));
