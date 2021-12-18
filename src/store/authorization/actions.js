@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setToken } from "../../services/LocalStorage/token";
-import { fetchUserData, setTokenStore } from "../userData/actions";
+import { setTokenStore } from "../userData/actions";
 import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "./constants";
 
 export const loginLoading = () => {
@@ -26,7 +26,7 @@ export const fetchLogin = (login, password) => (dispatch) => {
         password: password,
     })
         .then(token => {
-            dispatch(loginSucces(token.data.value));
+            dispatch(loginSucces());
             dispatch(setTokenStore(token.data.value)); 
             setToken(token.data.value); 
         })

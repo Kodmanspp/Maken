@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setToken } from "../../services/LocalStorage/token";
-import { setUserData } from "../userData/actions";
+import { setTokenStore, setUserData } from "../userData/actions";
 import { REGIST_FAILED, REGIST_LOADING, REGIST_SUCCES } from "./constants";
 
 
@@ -10,10 +10,9 @@ export const registLoading = () => {
         type: REGIST_LOADING,
     }
 }
-export const registSucces = (token) => {
+export const registSucces = () => {
     return {
         type: REGIST_SUCCES,
-        payload: token,
     }
 }
 export const registError = (error) => {
@@ -38,9 +37,9 @@ export const fetchRegist = (userData) => (dispatch) => {
         telegram: tel.value,
     })
         .then(token => {
-            dispatch(registSucces(token.data));
-            dispatch(setUserData({ token: token.data }));
-            setToken(token.data);
+            dispatch(registSucces());
+            dispatch(setTokenStore(token.data.value)); 
+            setToken(token.data.value); 
         })
         .catch((error) => {
             dispatch(registError(error.message));
