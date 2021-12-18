@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setToken } from "../../services/LocalStorage/token";
-import { setTokenStore, setUserData } from "../userData/actions";
+import { setTokenStore } from "../userData/actions";
 import { REGIST_FAILED, REGIST_LOADING, REGIST_SUCCES } from "./constants";
 
 
