@@ -1,10 +1,13 @@
-import NavBar from "./navigation/navbar/NavBar";
+import NavBarGuest from "./navigation/navbar/NavBarGuest";
 import {Outlet} from "react-router-dom"; 
+import NavBarAuth from "./navigation/navbar/NavBarAuth";
+import { useSelector } from "react-redux";
+
 export default function Layout(){
-    console.log()
+    const token = useSelector(state => state.user.token);
     return(
         <>
-            <NavBar/>
+            {token ? <NavBarAuth/> : <NavBarGuest/>}
             <Outlet/>
         </>
     )

@@ -1,44 +1,48 @@
 import axios from "axios";
 import { setToken } from "../../services/LocalStorage/token";
+import { setUserData } from "../userData/actions";
 import { REGIST_FAILED, REGIST_LOADING, REGIST_SUCCES } from "./constants";
 
 
-export const registLoading = () =>{
+export const registLoading = () => {
 
-    return{
+    return {
         type: REGIST_LOADING,
     }
 }
-export const registSucces = (token) =>{
-    return{
+export const registSucces = (token) => {
+    return {
         type: REGIST_SUCCES,
         payload: token,
     }
 }
-export const registError = (error) =>{
-    return{
+export const registError = (error) => {
+    return {
         type: REGIST_FAILED,
-        payload: error, 
+        payload: error,
     }
 }
 export const fetchRegist = (userData) => (dispatch) => {
-    dispatch(registLoading);
-    // const {image, login, password, tel} = userData; 
-    axios.post("http://localhost:1717/signin",{
-        // image: image,
-        // login: login, 
-        // password: password,
-        // telegram: tel, 
-        username: "killi",
-        password: "blame",
-        firstname: "killi",
-        age: 3000,
+    dispatch(registLoading());
+    const {
+        image = "",
+        login,
+        password,
+        tel
+    } = userData;
+    axios.post("https://maken-task.herokuapp.com/api/user", {
+        id: 0, 
+        image: image,
+        login: login.value,
+        password: password.value,
+        telegram: tel.value,
     })
-    .then(token => {
-        dispatch(registSucces(token.data.token));
-        setToken(token.data.token); 
-    })
-    .catch((error) => {
-        dispatch(registError(error.message));
-    })
+        .then(token => {
+            dispatch(registSucces(token.data));
+            dispatch(setUserData({ token: token.data }));
+            setToken(token.data);
+        })
+        .catch((error) => {
+            dispatch(registError(error.message));
+        })
 }

@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBarGuest() {
     return(
         <header className="header">
             <ul className="links" style={{display:"flex", justifyContent: "space-around"}}>
