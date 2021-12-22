@@ -12,7 +12,8 @@ export default function registReducer(state = initialState, action) {
         case REGIST_LOADING:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: null, 
             };
         case REGIST_SUCCES:
             return {

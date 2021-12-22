@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { getToken } from "../../../../../services/LocalStorage/token";
 
 import { fetchLogin } from "../../../../../store/authorization/actions";
 import { useFormInput } from "../../../../hooks/customHooks";
+import style from "./authorization.module.scss"; 
 
 
 export default function Authorization(){
@@ -19,13 +19,12 @@ export default function Authorization(){
     const setData = (e) =>{
         e.preventDefault(); 
         dispatch(fetchLogin(login.value, password.value, dispatch));
+        
     }
     useEffect(() => {
-        console.log(user.token);
-        if(user.token!== "" && user.token!== null){
+        if(user.token !== "" && user.token !== null){
             navigate("/workspace");
         }
-
     }, [user.token])
 
     return(

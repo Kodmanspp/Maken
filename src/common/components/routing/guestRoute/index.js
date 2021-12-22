@@ -1,10 +1,10 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
-import { getToken } from "../../../../services/LocalStorage/token";
+
 
 function GuestRoute({children}) {
-    const token = getToken();
-    if(token){
-        console.log(token); 
+    const token = useSelector(store => store.user.token);
+    if(token !== "" && token !== null){ 
         return <Navigate to="/workspace"/> 
     }
     return children; 

@@ -4,7 +4,7 @@ import NavBarAuth from "./navigation/navbar/NavBarAuth";
 import { useSelector } from "react-redux";
 
 export default function Layout(){
-    const token = useSelector(state => state.user.token);
+    const token = useSelector(state=> state.user.token); 
     return(
         <>
             {token ? <NavBarAuth/> : <NavBarGuest/>}

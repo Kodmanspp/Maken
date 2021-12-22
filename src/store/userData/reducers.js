@@ -1,11 +1,11 @@
-import { getToken } from "../../services/LocalStorage/token";
-import { SET_USER_DATA, CLEAR_USER_DATA, USER_LOADING, USER_SUCCES, USER_FAILED, SET_TOKEN_STORE } from "./constants";
-
+import { localGetItem } from "../../services/LocalStorage/localStorage";
+import { SET_USER_DATA, CLEAR_USER_DATA, USER_LOADING, USER_SUCCES, USER_FAILED, SET_TOKEN_STORE, SET_IMAGE_STORE } from "./constants";
+import avatar from "../../assets/avatar/avatar.png"; 
 const initialState = {
-    token: getToken(),
+    token: localGetItem("token") ? localGetItem("token") : null,
     data: {
-        id: null,
-        image: null,
+        id: localGetItem("id") ? localGetItem("id") : null,
+        image: avatar,
         login: "",
         telegram: "",
 
@@ -23,12 +23,14 @@ export default function userReducer(state = initialState, action) {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...{ data: action.payload },
-            };
-        case SET_TOKEN_STORE:
-            return {
-                ...state,
-                ...{ token: action.payload },
+                token: action.payload.token ? action.payload.token : localGetItem("token"),
+                data: {
+                    id: action.payload.id,
+                    login: action.payload.login,
+                    image: action.payload.image === null ? avatar: action.payload.image,
+                    telegram: action.payload.telegram, 
+                }
+
             };
         case CLEAR_USER_DATA:
             return {
@@ -39,7 +41,7 @@ export default function userReducer(state = initialState, action) {
             return {
                 ...state,
                 request: {
-                    loading: false,
+                    loading: true,
                     succes: false,
                     error: null,
                 }
@@ -56,6 +58,11 @@ export default function userReducer(state = initialState, action) {
 
             }
         }
+        case SET_IMAGE_STORE:
+            return {
+                ...state, 
+                data:{...state.data, image: action.payload} 
+            }
         case USER_FAILED: {
             return {
                 ...state,

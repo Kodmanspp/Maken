@@ -1,6 +1,7 @@
 import axios from "axios";
-import { setToken } from "../../services/LocalStorage/token";
-import { setTokenStore } from "../userData/actions";
+
+import { localSetArray } from "../../services/LocalStorage/localStorage";
+import {  setUserData } from "../userData/actions";
 import { REGIST_FAILED, REGIST_LOADING, REGIST_SUCCES } from "./constants";
 
 
@@ -34,12 +35,16 @@ export const fetchRegist = (userData) => (dispatch) => {
         image: image,
         login: login.value,
         password: password.value,
-        telegram: tel.value,
+        telegram: tel,
     })
-        .then(token => {
+        .then(user => {
+            const userData = user.data.value;
+            
             dispatch(registSucces());
-            dispatch(setTokenStore(token.data.value)); 
-            setToken(token.data.value); 
+            dispatch(setUserData(userData));
+
+            localSetArray([{name: "token", data: userData.token}, {name: "id", data: userData.id}]);
+
         })
         .catch((error) => {
             dispatch(registError(error.message));

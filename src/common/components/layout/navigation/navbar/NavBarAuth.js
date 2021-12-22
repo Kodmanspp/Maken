@@ -1,15 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {NavLink} from "react-router-dom";
-import { getToken } from "../../../../../services/LocalStorage/token";
-import { fetchUserData, setUserData } from "../../../../../store/userData/actions";
 
 export default function NavBarAuth() {
-    const dispatch = useDispatch();
-
-    const ProfileReq = () =>{
-       const token  = getToken();
-       dispatch(fetchUserData(token)); 
-    }
+    const avatar = useSelector(store => store.user.data.image); 
     return(
         <header className="header">
             <ul className="links" style={{display:"flex", justifyContent: "space-around"}}>
@@ -18,7 +11,7 @@ export default function NavBarAuth() {
                 <input type="text" />
                 
                 <NavLink to="/workspace">Рабочее пространство</NavLink>
-                <NavLink onClick={ProfileReq} to="/profile"><img src="" alt="Profile" /></NavLink>
+                <NavLink to="/profile"><img style={{"width": "40px"}} src={avatar} alt="Profile" /></NavLink>
             </ul>
         </header>
     )

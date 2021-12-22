@@ -1,4 +1,3 @@
-import { getToken } from "../../services/LocalStorage/token";
 import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "./constants";
 
 const initialState = {

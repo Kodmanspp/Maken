@@ -1,9 +1,11 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
-import { getToken } from "../../../../services/LocalStorage/token";
+import { localGetItem } from "../../../../services/LocalStorage/localStorage";
+
 
 function PrivateRoute({children}) {
-    const token = getToken();
-    if(!token){
+    const token = useSelector(store => store.user.token);
+    if(token === "" || token === null){
         return <Navigate to="/authorization"/> 
     }
     return children; 

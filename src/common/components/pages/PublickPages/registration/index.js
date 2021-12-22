@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import { useNavigate } from "react-router";
+import PhoneInput from 'react-phone-number-input';
 
 import { fetchRegist } from "../../../../../store/registration/actions";
 import { useFormInput } from "../../../../hooks/customHooks";
+import 'react-phone-number-input/style.css';
 
 export default function Registration() {
 
@@ -11,9 +13,10 @@ export default function Registration() {
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
 
+    const [tel, setTel] = useState(""); 
     const userData = {
         login: useFormInput(""),
-        tel: useFormInput(""),
+        tel: tel,
         password: useFormInput(""),
         confPassword: useFormInput(""),
     }
@@ -30,12 +33,12 @@ export default function Registration() {
 
     return (
         <div>
-            <form action="" style={{ display: "grid", width: "200px" }}>
-                <input type="text" required {...userData.login} />
+            <form action="" onSubmit={setUserInfo} style={{ display: "grid", width: "200px" }}>
+                <input required type="text"  {...userData.login} />
                 <input type="password" required {...userData.password} />
-                <input type="password" required {...userData.confPassword} />
-                <input type="tel" required {...userData.tel} />
-                <button onClick={setUserInfo}>Submit</button>
+                <input type="password" required {...userData.tel} />
+                <PhoneInput required placeholder="Enter phone number" value={tel} onChange={setTel} />
+                <button type="submit">Submit</button>
             </form>
         </div>
     )

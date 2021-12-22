@@ -1,6 +1,6 @@
 import axios from "axios";
-import { setToken } from "../../services/LocalStorage/token";
-import { setTokenStore } from "../userData/actions";
+import { localSetArray } from "../../services/LocalStorage/localStorage";
+import { setUserData } from "../userData/actions";
 import { LOGIN_FAILED, LOGIN_LOADING, LOGIN_SUCCESS } from "./constants";
 
 export const loginLoading = () => {
@@ -21,14 +21,17 @@ export const loginError = (error) => {
 }
 export const fetchLogin = (login, password) => (dispatch) => {
     dispatch(loginLoading());
-    axios.post("https://maken-task.herokuapp.com/api/user/sign-up", {
+    axios.post("https://maken-task.herokuapp.com/api/user/sign-in", {
         login: login,
         password: password,
     })
-        .then(token => {
+        .then(user => {
+            const userData = user.data.value;
+            
             dispatch(loginSucces());
-            dispatch(setTokenStore(token.data.value)); 
-            setToken(token.data.value); 
+            dispatch(setUserData(userData));
+        
+            localSetArray([{name: "token", data: userData.token}, {name: "id", data: userData.id}]);
         })
         .catch((error) => {
             dispatch(loginError(error.message));
