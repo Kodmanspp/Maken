@@ -10,6 +10,7 @@ import GuestRoute from "./common/components/routing/guestRoute";
 import PrivateRoute from "./common/components/routing/privateRoute";
 import { Profile } from "./common/components/pages/PrivatePages/profile";
 import { WorkSpace } from "./common/components/pages/PrivatePages/workspace";
+import { Dashboard } from "./common/components/pages/PrivatePages/workspace/Dashboard";
 
 function App() {
     return (

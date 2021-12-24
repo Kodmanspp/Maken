@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router";
 import { clearUserData, fetchUserData } from "../../../../../store/userData/actions";
-import ProfileEdit from "./ProfileEdit";
-import ProfileData from "./ProfileData";
+
 
 
 
 export const Profile = () => {
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [edit, setEdit] = useState(false);
+    const [image, setImage] = useState(null);
 
     const user = useSelector(store => store.user);
     function leave() {
@@ -21,31 +20,53 @@ export const Profile = () => {
     }
 
     useEffect(() => {
-        if(user.request.error !== null){
-            leave();            
-        }
-        else if(user.data.login === ""){
-            dispatch(fetchUserData(user.token, user.data.id, dispatch)); 
-        }
-    }, [])
+    
 
-    function editChange(){
-        setEdit(!edit);
-        console.log(edit);  
+        // if (user.data.login === "") {
+        //     dispatch(fetchUserData(user.token, user.data.id, dispatch));
+        // }
+        if (user.request.error !== null) {
+            leave();
+        }
+        
+    }, [user.request.error])
+
+    function imageChange(e) {
+        const newImage = e.target.files[0];
+        setImage(newImage);
+        console.log(newImage);
     }
-
-    if(user.request.loading === true){
-        return(
+    if (user.request.loading === true) {
+        return (
             <p>Loading</p>
         )
     }
-    else{
+    else {
+
         return (
             <div>
-                {edit ? <ProfileEdit props={user.data}/> : <ProfileData props={user.data}/>}
+                <label htmlFor="img">
+                    <img src={user.data.image} alt="Avatar" width="20px" />
+                </label>
+                <input type="file" onChange={imageChange} />
+
+                <p>{user.data.login}</p>
+                <p>{user.data.email}</p>
                 <button onClick={leave}>Leave</button>
-                <button onClick={editChange}>{edit ? "Настройки" : "Изменить" }</button>
             </div>
         )
+
+
+
+
+
+
+        // return (
+        //     <div>
+        //         {edit ? <ProfileEdit props={user.data}/> : <ProfileData props={user.data}/>}
+        //         <button onClick={leave}>Leave</button>
+        //         <button onClick={editChange}>{edit ? "Настройки" : "Изменить" }</button>
+        //     </div>
+        // )
     }
 }

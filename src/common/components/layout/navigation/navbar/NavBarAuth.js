@@ -1,17 +1,27 @@
+import logo from "../../../../../assets/logo/Logo.png";
+
 import { useSelector } from "react-redux";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-export default function NavBarAuth() {
-    const avatar = useSelector(store => store.user.data.image); 
-    return(
-        <header className="header">
-            <ul className="links" style={{display:"flex", justifyContent: "space-around"}}>
-                <NavLink to="/workspace"><img src="./logo" alt="Logotip"/></NavLink>
+export default function NavBarAuth({ style, logo }) {
+    const avatar = useSelector(store => store.user.data.image);
+    return (
+        <header className={`${style.header} ${style.header__auth}`}>
+            <ul className={`${style.list} ${style.list__auth}`}>
+                <div>
+                    <NavLink to="/workspace">
+                        <img className={`${style.logo} ${style.logo__auth}`} src={logo} alt="Logotip" />
+                    </NavLink>
 
-                <input type="text" />
-                
-                <NavLink to="/workspace">Рабочее пространство</NavLink>
-                <NavLink to="/profile"><img style={{"width": "40px"}} src={avatar} alt="Profile" /></NavLink>
+                    <input className={`${style.search}`} />
+                </div>
+                <div>
+                    <NavLink to="/workspace" className={`${style.workspace}`}>Рабочее пространство</NavLink>
+
+                    <NavLink to="/profile">
+                        <img className={`${style.profile}`} src={avatar} alt="Profile" />
+                    </NavLink>
+                </div>
             </ul>
         </header>
     )

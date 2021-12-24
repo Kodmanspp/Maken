@@ -25,17 +25,16 @@ export const registError = (error) => {
 export const fetchRegist = (userData) => (dispatch) => {
     dispatch(registLoading());
     const {
-        image = "",
         login,
         password,
-        tel
+        email,
     } = userData;
     axios.post("https://maken-task.herokuapp.com/api/user", {
+        email: email.value,
         id: 0, 
-        image: image,
+        image: 0,
         login: login.value,
         password: password.value,
-        telegram: tel,
     })
         .then(user => {
             const userData = user.data.value;

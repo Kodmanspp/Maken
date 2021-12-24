@@ -41,11 +41,16 @@ export const userSetImage = (image) => {
 export const fetchUserData = (token, id) => (dispatch) => {
 
     dispatch(userLoading());
-    axios.get(`${ENDPOINT}${user}/${id}`, {
-        Headers: {
-            "Authorization": token,
+    axios.get(`${ENDPOINT}${user}/${id}`,
+        {
+            id: id, 
         },
-    })
+        {
+            Headers: {
+                "Authorization": token,
+            },
+        }
+    )
         .then(user => {
             const userData = user.data.value;
             dispatch(setUserData(userData));
@@ -59,25 +64,28 @@ export const fetchUserData = (token, id) => (dispatch) => {
         })
 
 }
-export const fetchUserUpdate = (token, login) => (dispatch) => {
+export const fetchUserUpdate = (tokenData, loginData) => (dispatch) => {
 
-    dispatch(userLoading());
-    axios.put(`${ENDPOINT}${user}`,
+    // dispatch(userLoading());
+    axios.put(`${ENDPOINT}${user}/update-name`,
         {
-            login: login,
+            login: loginData,
+            token: tokenData,
         },
         {
-            Headers: {
-                "Authorization": token,
-            },
+            headers: {
+                'Authorization': tokenData
+            }
         })
         .then(user => {
-            const userData = user.data.value;
-            dispatch(setUserData(userData));
-            dispatch(userSucces());
+            console.log(user);
+            // const userData = user.data.value;
+            // dispatch(setUserData(userData));
+            // dispatch(userSucces());
         })
         .catch(error => {
-            dispatch(userFailed(error));
+            // dispatch(userFailed(error));
+            console.log(error);
 
         })
 

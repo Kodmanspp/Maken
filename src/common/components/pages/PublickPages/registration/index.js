@@ -13,10 +13,9 @@ export default function Registration() {
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
 
-    const [tel, setTel] = useState(""); 
     const userData = {
         login: useFormInput(""),
-        tel: tel,
+        email: useFormInput(""),
         password: useFormInput(""),
         confPassword: useFormInput(""),
     }
@@ -36,8 +35,8 @@ export default function Registration() {
             <form action="" onSubmit={setUserInfo} style={{ display: "grid", width: "200px" }}>
                 <input required type="text"  {...userData.login} />
                 <input type="password" required {...userData.password} />
-                <input type="password" required {...userData.tel} />
-                <PhoneInput required placeholder="Enter phone number" value={tel} onChange={setTel} />
+                <input type="password" required />
+                <input type="email" required  {...userData.email}/>
                 <button type="submit">Submit</button>
             </form>
         </div>

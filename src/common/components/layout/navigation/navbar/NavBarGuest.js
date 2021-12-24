@@ -1,12 +1,13 @@
 import {NavLink} from "react-router-dom";
 
-export default function NavBarGuest() {
+export default function NavBarGuest({style, logo}) {
+    
     return(
-        <header className="header">
-            <ul className="links" style={{display:"flex", justifyContent: "space-around"}}>
-                <NavLink to="/"><img src="./logo" alt="Logotip"/></NavLink>
-                <NavLink to="/registration">Регистрация</NavLink>
-                <NavLink to="/authorization">Войти</NavLink>
+        <header className={`${style.header} ${style.header__guest}`}>
+            <ul className={`${style.list} ${style.list__guest}`} >
+                <NavLink to="/"><img className={`${style.guest} ${style.guest}`}  src={logo} alt="Logotip"/></NavLink>
+                <NavLink to="/registration" className={`${style.registration} ${style.link}`}>Регистрация</NavLink>
+                <NavLink to="/authorization" className={`${style.authorization} ${style.link}`}>Войти</NavLink>
             </ul>
         </header>
     )

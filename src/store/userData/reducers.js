@@ -7,7 +7,7 @@ const initialState = {
         id: localGetItem("id") ? localGetItem("id") : null,
         image: avatar,
         login: "",
-        telegram: "",
+        email: "",
 
     },
     request: {
@@ -28,7 +28,7 @@ export default function userReducer(state = initialState, action) {
                     id: action.payload.id,
                     login: action.payload.login,
                     image: action.payload.image === null ? avatar: action.payload.image,
-                    telegram: action.payload.telegram, 
+                    email: action.payload.email, 
                 }
 
             };
