@@ -37,3 +37,12 @@ button{
 .addDash:hover{
     background-color: rgb(189, 255, 189);
 }
+.lit{
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+}
+.itemName{
+    margin-bottom: 10px;
+    
+}

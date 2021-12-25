@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAddtask } from "../../../../../../store/lists/actions";
 import { useFormInput } from "../../../../../hooks/customHooks";
-
+import style from "../workspace.module.scss";
 export const List = (data) => {
 
     const dispatch = useDispatch()
@@ -23,16 +23,15 @@ export const List = (data) => {
         setInputChange(false);
         console.log(item); 
     }
-
+   
     return (
         <div>
-            <h2>{item.name}</h2>
+            <h2 className={style.itemName}>{item.name}</h2>
             {
-                item.cardModels.length > 0 ?
                     item.cardModels.map((item, index) => {
                         return <p key={index}>{item.name}</p>
                     })
-                    : <p>Empty</p>
+                    
             }
             {
                 inputChange ?
