@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import { useNavigate } from "react-router";
-import PhoneInput from 'react-phone-number-input';
 
 import { fetchRegist } from "../../../../../store/registration/actions";
 import { useFormInput } from "../../../../hooks/customHooks";
-import 'react-phone-number-input/style.css';
+import style from "../authorization/authorization.module.scss"; 
 
 export default function Registration() {
 
@@ -31,13 +30,14 @@ export default function Registration() {
     }
 
     return (
-        <div>
-            <form action="" onSubmit={setUserInfo} style={{ display: "grid", width: "200px" }}>
-                <input required type="text"  {...userData.login} />
-                <input type="password" required {...userData.password} />
-                <input type="password" required />
-                <input type="email" required  {...userData.email}/>
-                <button type="submit">Submit</button>
+        <div className={style.container}>
+            <h1>Регистрация</h1>
+            <form className={style.form} onSubmit={setUserInfo}>
+                <input placeholder="Login" className={`${style.input}`} required type="text"  {...userData.login} />
+                <input placeholder="Password" className={`${style.input}`} type="password" required {...userData.password} />
+                <input placeholder="Repeat password" className={`${style.input}`} type="password" required />
+                <input placeholder="Email" className={`${style.input}`} type="email" required  {...userData.email}/>
+                <button className={`${style.submit__btn}`} type="submit">Submit</button>
             </form>
         </div>
     )

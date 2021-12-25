@@ -1,23 +1,18 @@
-import { useEffect } from "react"
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux"
-import { fetchLists } from "../../../../../../store/lists/actions";
 
-export const Dashboard = (index) => {
-    const dispatch = useDispatch();
-    const token = useSelector(state => state.user.token); 
-    const lists = useSelector(state => state.lists.lists);
-    const listFilter = lists.filter(item => item.dashboardId === index.index + 1); 
-    console.log(lists);
-    console.log(index.index);
-    useEffect(()=>{
-        dispatch(fetchLists(token));        
-    }, [])
+import { useSelector } from "react-redux";
+import { List } from "../Lists";
+
+
+export const Dashboard = () => {
+    const list = useSelector(state => state.lists);
     return (
         <div>
-            { listFilter.map((item, index) => {
-                return <h2 key={index}>{item.name}</h2>
-            })}
+            {list.lists.length !== 0 ? 
+            list.lists.map((item, index) => {
+                return <List key={index} data={item} />
+            }) 
+            : 
+            <p>pusto</p>}
         </div>
     )
 }

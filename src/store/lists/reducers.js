@@ -1,4 +1,4 @@
-import {  LIST_LOADING, LIST_SUCCES, LIST_FAILED, LIST_GET_ALL } from "./constants";
+import {  LIST_LOADING, LIST_SUCCES, LIST_FAILED, LIST_GET_ALL, LIST_ADD_TASK } from "./constants";
 
 const initialState = {
     lists: [],
@@ -15,21 +15,29 @@ export default function listsReducer(state = initialState, action) {
         case LIST_LOADING:
             return {
                 ...state,
-                loading: true,
-                error: null, 
+                request: {
+                    ...state.request,
+                    loading: true,
+                }
             };
         case LIST_SUCCES:
             return {
                 ...state,
-                succes: true,
-                loading: false,
-                error: null
+                request: {
+                    ...state.request,    
+                        succes: true,
+                        loading: false,
+                    
+                }
             };
         case LIST_FAILED:
             return {
                 ...state,
-                loading: false,
-                error: action.payload
+                request: {
+                    ...state.request,
+                    error: action.payload,
+                    loading: false,
+                }
             };
         case LIST_GET_ALL: {
             return{
@@ -37,6 +45,11 @@ export default function listsReducer(state = initialState, action) {
                 lists: action.payload, 
             }
         }
+        case LIST_ADD_TASK:
+            return {
+                ...state,
+                lists: [...state.lists, action.payload], 
+            }
         default:
             return state;
     }

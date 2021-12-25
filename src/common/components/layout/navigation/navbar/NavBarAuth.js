@@ -12,11 +12,10 @@ export default function NavBarAuth({ style, logo }) {
                     <NavLink to="/workspace">
                         <img className={`${style.logo} ${style.logo__auth}`} src={logo} alt="Logotip" />
                     </NavLink>
-
-                    <input className={`${style.search}`} />
                 </div>
+                
                 <div>
-                    <NavLink to="/workspace" className={`${style.workspace}`}>Рабочее пространство</NavLink>
+                    <NavLink to="/workspace" className={`${style.workspace} ${style.link}`}>Рабочее пространство</NavLink>
 
                     <NavLink to="/profile">
                         <img className={`${style.profile}`} src={avatar} alt="Profile" />

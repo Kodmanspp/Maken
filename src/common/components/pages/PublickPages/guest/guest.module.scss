@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Corinthia&family=Roboto&display=swap');
+.body{
+    min-height: 100%;
+}
+.main {
+    width: 100%;
+    background: #f4f9e2;
+    margin: 0px;
+    text-align: center;
+    font-family: 'Corinthia', "cursive";
+    font-family: 'Roboto', sans-serif;
+}
+.title {
+    font-size: 48px;
+    line-height: 53px;
+    letter-spacing: -0.035em;
+    color: #22356f;
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+.content{
+    min-height: 100%;
+    margin-top: 40px;
+    display: grid;
+    justify-content: center; 
+    grid-template-columns:  minmax(auto, auto); 
+    grid-template-rows: minmax(auto, auto), auto;
+}
+
+.text{
+    max-width: 400px;
+    justify-self: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 42px;
+    color: #22356F;
+}
+.img{
+    width: 100%;
+    margin-bottom: 70px;
+    border-radius: 10px;
+    background-position: center;
+}
+

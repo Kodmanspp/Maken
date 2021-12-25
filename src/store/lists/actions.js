@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { } from "../../services/LocalStorage/localStorage";
 import { } from "../userData/actions";
-import { DASH_FAILED, DASH_GET_ALL, DASH_LOADING, DASH_SUCCES, LIST_FAILED, LIST_GET_ALL, LIST_LOADING, LIST_SUCCES } from "./constants";
+import { LIST_ADD_TASK, LIST_FAILED, LIST_GET_ALL, LIST_LOADING, LIST_SUCCES } from "./constants";
 
 
 export const listLoading = () => {
@@ -19,21 +19,26 @@ export const listSucces = () => {
 export const listError = (error) => {
     return {
         type: LIST_FAILED,
-        payload: error, 
+        payload: error,
     }
 }
-export const listSetStore = (data) =>{
-    return{
+export const listSetStore = (data) => {
+    return {
         type: LIST_GET_ALL,
         payload: data,
     }
 }
-export const fetchLists = (token) => (dispatch) => {
-
-    axios.get("https://maken-task.herokuapp.com/api/list/get-all", {
-    },
+export const listAddTask = (res) => {
+    return {
+        type: LIST_ADD_TASK,
+        payload: res.value,
+    }
+}
+export const fetchLists = (token, id) => (dispatch) => {
+    dispatch(listLoading());
+    axios.get(`https://maken-task.herokuapp.com/api/dashboard/get-all/${id}`,
         {
-            Headers: {
+            headers: {
                 "Authorization": token,
             },
         }
@@ -41,9 +46,37 @@ export const fetchLists = (token) => (dispatch) => {
     )
         .then(res => {
             dispatch(listSetStore(res.data));
-            console.log(res.data); 
+            dispatch(listSucces());
         })
         .catch((error) => {
+            dispatch(listError(error));
+        })
+}
+export const fetchAddtask = (token, listId, name) => (dispatch) => {
+    dispatch(listLoading());
+    axios.post(`https://maken-task.herokuapp.com/api/card`,
+        {
+            "adminRating": 0,
+            "deadline": "2025-01-03 22:22",
+            "description": "string",
 
+            "labelId": 1,
+            "listId": listId,
+            "name": name
+        },
+        {
+            headers: {
+                "Authorization": token,
+            },
+        }
+
+    )
+        .then(res => {
+            console.log(res);
+            dispatch(listSucces());
+            dispatch(listAddTask(res.data));
+        })
+        .catch((error) => {
+            dispatch(listError(error));
         })
 }

@@ -28,11 +28,12 @@ export default function Authorization(){
     }, [user.token])
 
     return(
-        <div>
-            <form action="" style={{display: "grid", width: "200px"}}>
-                <input type="text" {...login}/>
-                <input type="password" {...password}/>
-                <button onClick={setData}>submit</button>
+        <div className={style.container}>
+            <h1>Авторизация</h1>
+            <form className={style.form}>
+                <input placeholder="Login"  className={`${style.login} ${style.input}`} type="text" {...login}/>
+                <input placeholder="Password"  className={`${style.password} ${style.input}`} type="password" {...password}/>
+                <button className={style.submit__btn} onClick={setData}>submit</button>
             </form>
         </div>
     )

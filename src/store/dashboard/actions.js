@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { } from "../../services/LocalStorage/localStorage";
 import { } from "../userData/actions";
-import { DASH_FAILED, DASH_GET_ALL, DASH_LOADING, DASH_SUCCES } from "./constants";
+import { DASH_CREATE, DASH_FAILED, DASH_GET_ALL, DASH_LOADING, DASH_SUCCES } from "./constants";
 
 
 export const dashLoading = () => {
@@ -19,33 +19,58 @@ export const dashSucces = () => {
 export const dashError = (error) => {
     return {
         type: DASH_FAILED,
-        payload: error, 
+        payload: error,
     }
 }
-export const dashSetStore = (data) =>{
-    return{
+export const dashSetStore = (data) => {
+    return {
         type: DASH_GET_ALL,
         payload: data,
     }
 }
-export const fetchDashboard = (token, id) => (dispatch) => {
-
-    axios.get("https://maken-task.herokuapp.com/api/dashboard", {
-    },
+export const dashPost = (res) => {
+    console.log(res.value); 
+    return {
+        type: DASH_CREATE,
+        payload: res.value, 
+    }
+}
+export const fetchDashboard = (token) => (dispatch) => {
+    dispatch(dashLoading());
+    axios.get("https://maken-task.herokuapp.com/api/dashboard/get-user-dashboards",
         {
-            Headers: {
+            headers: {
                 "Authorization": token,
             },
         }
-
     )
         .then(res => {
-            if(Array.isArray(res.data)){
-                const resId = res.data.filter(item => item.dashboardId === id); 
-                dispatch(dashSetStore(resId));
-            }
+            
+                dispatch(dashSetStore(res.data));
+                dispatch(dashSucces());
+            
         })
         .catch((error) => {
-
+            dispatch(dashError(error));
+        })
+}
+export const fetchDashboardAdd = (token, name) => (dispatch) => {
+    dispatch(dashLoading());
+    axios.post("https://maken-task.herokuapp.com/api/dashboard",
+        {
+            name: name,
+        },
+        {
+            headers: {
+                "Authorization": token,
+            },
+        }
+    )
+        .then(res => { 
+            dispatch(dashPost(res.data));
+            dispatch(dashSucces());
+        })
+        .catch((error) => {
+            dispatch(dashError(error));
         })
 }

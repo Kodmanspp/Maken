@@ -5,7 +5,7 @@ const initialState = {
     token: localGetItem("token") ? localGetItem("token") : null,
     data: {
         id: localGetItem("id") ? localGetItem("id") : null,
-        image: avatar,
+        image: localGetItem("img") !== "null" ? localGetItem("img") : avatar,
         login: "",
         email: "",
 
@@ -27,7 +27,7 @@ export default function userReducer(state = initialState, action) {
                 data: {
                     id: action.payload.id,
                     login: action.payload.login,
-                    image: action.payload.image === null ? avatar: action.payload.image,
+                    image: action.payload.image === null ? avatar : action.payload.image,
                     email: action.payload.email, 
                 }
 

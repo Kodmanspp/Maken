@@ -39,54 +39,119 @@ export const userSetImage = (image) => {
     }
 }
 export const fetchUserData = (token, id) => (dispatch) => {
-
     dispatch(userLoading());
+    
     axios.get(`${ENDPOINT}${user}/${id}`,
         {
-            id: id, 
-        },
-        {
-            Headers: {
+            headers: {
                 "Authorization": token,
             },
         }
     )
         .then(user => {
-            const userData = user.data.value;
+            const userData = user.data.value
             dispatch(setUserData(userData));
             dispatch(userSucces());
-
+            console.log(userData); 
             userData.token && localSetArray([{ name: "token", data: userData.token }, { name: "id", data: userData.id }]);
+            localSetArray([ {name: "img", data: userData.image}]);
         })
         .catch(error => {
             dispatch(userFailed(error));
-
         })
 
 }
-export const fetchUserUpdate = (tokenData, loginData) => (dispatch) => {
-
-    // dispatch(userLoading());
-    axios.put(`${ENDPOINT}${user}/update-name`,
-        {
-            login: loginData,
-            token: tokenData,
-        },
+export const setImage = (image, token) => (dispatch) => {
+    dispatch(userLoading());
+    axios.put(`${ENDPOINT}${user}/update-image`, image,
         {
             headers: {
-                'Authorization': tokenData
-            }
-        })
-        .then(user => {
-            console.log(user);
-            // const userData = user.data.value;
-            // dispatch(setUserData(userData));
-            // dispatch(userSucces());
-        })
-        .catch(error => {
-            // dispatch(userFailed(error));
-            console.log(error);
+                "Authorization": token,
+                'Content-Type': 'multipart/form-data',
+                "enctype": "multipart/form-data",
 
-        })
+            },
+        }).then(user => {
+            const userData = user.data.value
+            dispatch(setUserData(userData));
+            dispatch(userSucces());
+            localSetArray([{name: "img", data: userData.image}]);
 
+        }).catch(error => {
+            dispatch(userFailed(error));
+        });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // export const fetchUserUpdate = (tokenData, loginData) => (dispatch) => {
+
+// //     // dispatch(userLoading());
+// //     axios.put(`${ENDPOINT}${user}/update-name`,
+// //         {
+// //             login: loginData,
+// //             token: tokenData,
+// //         },
+// //         {
+// //             headers: {
+// //                 'Authorization': tokenData
+// //             }
+// //         })
+// //         .then(user => {
+// //             console.log(user);
+// //             // const userData = user.data.value;
+// //             // dispatch(setUserData(userData));
+// //             // dispatch(userSucces());
+// //         })
+// //         .catch(error => {
+// //             // dispatch(userFailed(error));
+// //             console.log(error);
+
+// //         })
+
+// }
